@@ -1,0 +1,14 @@
+body {
+  font-family: "Amaranth", sans-serif;
+}
+
+.progress-tracker {
+  /* border: 0.1rem solid black; */
+  margin: 0.5rem;
+  overflow: visible;
+}
+
+.container {
+  max-width: 100px;
+  margin: 0 auto;
+}
