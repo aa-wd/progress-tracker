@@ -1,4 +1,4 @@
-body {
+body, input {
   font-family: "Amaranth", sans-serif;
 }
 
@@ -11,4 +11,16 @@ body {
 .container {
   max-width: 100px;
   margin: 0 auto;
+}
+
+
+.progress-tracker__input-container {
+  margin-bottom: 1.5rem;
+}
+
+.progress-tracker__input-container input {
+  font-size: 2rem;
+  padding: 1rem;
+  width: 4rem;
+  text-align: center;
 }
