@@ -1,34 +1,53 @@
 import * as React from "react";
 import { render } from "react-dom";
-import { getXCoordinate, getYCoordinate } from "./functions";
+import ValueInput from "./ValueInput";
+import { getCoordinates } from "./functions";
 
 import "./styles.css";
 
 interface AppState {
   x: number;
   y: number;
-  isLargeArc: number;
+  percentage: number | '';
+  isLargeArc: number|string;
   strokeColor: string;
 }
 
 class App extends React.Component<{}, AppState> {
-  constructor(props) {
+  constructor(props: {}) {
     super(props);
 
     this.state = {
-      x: 0,
-      y: 50,
-      isLargeArc: 1,
+      x: 50,
+      y: 0,
+      percentage: '',
+      isLargeArc: 0,
       strokeColor: "#54D816"
     };
+
+    this.changePercentage = this.changePercentage.bind(this);
   }
-  changePercentage() {}
+  changePercentage(e: React.ChangeEvent<HTMLInputElement>) {
+    const value = e.currentTarget.value;
+    const valueAsNumber = parseInt(e.currentTarget.value);
+
+    let [ x, y ] = getCoordinates(valueAsNumber || 0);
+
+    if (!isNaN(valueAsNumber) && valueAsNumber <= 100 || value === '') {
+      this.setState({
+        percentage: valueAsNumber ? valueAsNumber : '',
+        x,
+        y,
+        isLargeArc: valueAsNumber && valueAsNumber > 50 ? '1': '0',
+      });
+    }
+  }
   render() {
-    const { isLargeArc, x, y, strokeColor } = this.state;
+    const { isLargeArc, x, y, strokeColor, percentage } = this.state;
     return (
       <div className="container">
         <h1>Progress tracker</h1>
-
+        <ValueInput changePercentage={this.changePercentage} percentage={percentage} />
         <svg className="progress-tracker" viewBox="0 0 100 100">
           <g>
             <path
