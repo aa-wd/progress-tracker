@@ -18,8 +18,10 @@ interface AppState {
 }
 
 class App extends React.Component<{}, AppState> {
+  private circleBackgroundDefaultColor: string;
   constructor(props: {}) {
     super(props);
+    this.circleBackgroundDefaultColor = '#EFEFEF';
 
     this.state = {
       x: 50,
@@ -28,13 +30,13 @@ class App extends React.Component<{}, AppState> {
       isLargeArc: 0,
       strokeColor: undefined,
       strokeWidth: 15,
-      circleBackgroundColor: '#EFEFEF',
+      circleBackgroundColor: this.circleBackgroundDefaultColor,
     };
 
     this.handleChange = this.handleChange.bind(this);
   }
   componentDidMount() {
-    this.changePercentage('75');
+    this.changePercentage('10');
   }
   handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     this.changePercentage(e.currentTarget.value);
@@ -51,6 +53,8 @@ class App extends React.Component<{}, AppState> {
         y,
         isLargeArc: valueAsNumber && valueAsNumber > 50 ? '1': '0',
         strokeColor: interpolateRdYlGn(valueAsNumber ? valueAsNumber / 100 : 0),
+        circleBackgroundColor: valueAsNumber && valueAsNumber === 100 ?
+          'rgb(3, 109, 57)': this.circleBackgroundDefaultColor,
       });
     }
   }
